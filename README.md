@@ -6,28 +6,25 @@ public class CustomPRNG {
     private long modulus;
     private long multiplier;
 
-    // Constructor to initialize PRNG parameters
+
     public CustomPRNG(long seed, long modulus, long multiplier) {
         this.seed = seed;
         this.modulus = modulus;
         this.multiplier = multiplier;
     }
 
-    // Custom f(|x|, |n|) function
     private long customFunction(long x, long n) {
         long result = x * (n / x - 1);
         if (result <= n) return result;
         else return x;
     }
 
-    // Generate next random number (0 <= r < 1)
     public double nextDouble() {
         seed = (multiplier * seed + 1) % modulus;
         seed = customFunction(seed, modulus);
         return (double) seed / modulus;
     }
 
-    // Generate an array of random numbers
     public double[] generateRandomArray(int size) {
         double[] arr = new double[size];
         for (int i = 0; i < size; i++) {
@@ -36,7 +33,7 @@ public class CustomPRNG {
         return arr;
     }
 
-    // Test/Usage of the PRNG
+   
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         System.out.print("Enter seed: ");
